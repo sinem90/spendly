@@ -1,56 +1,28 @@
 # Spendly Backend API
 
-Node.js/Express backend API for the Spendly personal finance application.
+Complete Node.js/Express REST API for the Spendly personal finance application.
 
-## Current Status
+## Features
 
-**Phase 1 Complete** - Core infrastructure is set up:
-- ✅ Express server with middleware
-- ✅ PostgreSQL database connection with pooling
-- ✅ User, Category, and Transaction models
-- ✅ Authentication middleware (JWT)
-- ✅ Validation middleware
-- ✅ Environment configuration
-
-**TODO** - Still needed for complete backend:
-- Controllers for all routes
-- Complete route implementations
-- Budget model
-- Error handling utilities
-- Testing setup
+- ✅ JWT-based authentication
+- ✅ PostgreSQL database with connection pooling
+- ✅ Complete CRUD operations for users, categories, budgets, and transactions
+- ✅ Advanced analytics queries (spending trends, budget vs actual)
+- ✅ Request validation and sanitization
+- ✅ Security middleware (Helmet, CORS, rate limiting)
+- ✅ Comprehensive error handling
+- ✅ Database views and triggers for complex queries
 
 ## Tech Stack
 
 - **Runtime**: Node.js 16+
-- **Framework**: Express.js
-- **Database**: PostgreSQL with node-postgres (pg)
+- **Framework**: Express.js 4.x
+- **Database**: PostgreSQL 12+ with node-postgres (pg)
 - **Authentication**: JWT (jsonwebtoken) + bcrypt
 - **Validation**: express-validator
-- **Security**: helmet, cors, rate-limiting
+- **Security**: helmet, cors, express-rate-limit
 
-## Project Structure
-
-```
-backend/
-├── config/
-│   └── database.js          # PostgreSQL connection pool
-├── middleware/
-│   ├── auth.js              # JWT authentication
-│   └── validation.js        # Request validation rules
-├── models/
-│   ├── user.model.js        # User database operations
-│   ├── category.model.js    # Category database operations
-│   └── transaction.model.js # Transaction database operations
-├── routes/                  # TODO: Route definitions
-├── controllers/             # TODO: Request handlers
-├── utils/                   # TODO: Helper functions
-├── .env.example             # Environment variables template
-├── package.json             # Dependencies
-├── server.js                # Express app entry point
-└── README.md                # This file
-```
-
-## Setup Instructions
+## Quick Start
 
 ### 1. Install Dependencies
 
@@ -58,7 +30,7 @@ backend/
 npm install
 ```
 
-### 2. Set Up Environment Variables
+### 2. Configure Environment
 
 Copy `.env.example` to `.env` and configure:
 
@@ -66,12 +38,11 @@ Copy `.env.example` to `.env` and configure:
 cp .env.example .env
 ```
 
-Edit `.env` with your settings:
+Edit `.env`:
 ```env
 NODE_ENV=development
-PORT=5000
+PORT=5001
 DB_HOST=localhost
-DB_PORT=5432
 DB_NAME=spendly
 DB_USER=spendly_app
 DB_PASSWORD=your_password
@@ -80,17 +51,19 @@ JWT_SECRET=your_secret_key_min_32_chars
 
 ### 3. Set Up Database
 
-Make sure PostgreSQL is running and the database is created. See `../database/README.md` for instructions.
+Ensure PostgreSQL is running and the database is created:
 
 ```bash
-# From the database folder
-psql -U spendly_app -d spendly -f schema.sql
-psql -U spendly_app -d spendly -f seed.sql
+# From the root directory
+psql -d spendly -f database/schema.sql
+psql -d spendly -f database/seed.sql
 ```
 
-### 4. Run the Server
+See `../database/README.md` for detailed database setup.
 
-**Development mode with auto-reload:**
+### 4. Start Server
+
+**Development mode (with auto-reload):**
 ```bash
 npm run dev
 ```
@@ -100,24 +73,99 @@ npm run dev
 npm start
 ```
 
-The server will start on `http://localhost:5000`
+Server will start on http://localhost:5001
 
-## Available Endpoints
+### 5. Test API
 
-### Health Check
-- `GET /health` - Check server and database status
+**Health check:**
+```bash
+curl http://localhost:5001/health
+```
 
-### API Routes (TODO)
-Currently stubbed out. Full implementation coming soon:
+**API info:**
+```bash
+curl http://localhost:5001/api
+```
+
+## Project Structure
+
+```
+backend/
+├── config/
+│   └── database.js          # PostgreSQL connection pool
+├── controllers/
+│   ├── auth.controller.js   # Authentication logic
+│   ├── user.controller.js   # User management
+│   ├── category.controller.js
+│   ├── budget.controller.js
+│   └── transaction.controller.js
+├── middleware/
+│   ├── auth.js              # JWT authentication
+│   └── validation.js        # Request validation
+├── models/
+│   ├── user.model.js        # User database operations
+│   ├── category.model.js
+│   ├── budget.model.js
+│   └── transaction.model.js
+├── routes/
+│   ├── index.js             # Main router
+│   ├── auth.routes.js
+│   ├── user.routes.js
+│   ├── category.routes.js
+│   ├── budget.routes.js
+│   └── transaction.routes.js
+├── utils/
+│   └── errors.js            # Custom error classes
+├── .env.example
+├── package.json
+└── server.js                # Express app entry point
+```
+
+## API Endpoints
+
+### Authentication
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - Login user
-- `GET /api/categories` - Get user's categories
-- `GET /api/transactions` - Get user's transactions
-- `GET /api/budgets` - Get user's budgets
+- `POST /api/auth/logout` - Logout user
+- `GET /api/auth/me` - Get current user (auth required)
+
+### Users
+- `GET /api/users/:id` - Get user by ID
+- `PUT /api/users/:id` - Update user profile
+- `DELETE /api/users/:id` - Delete user account
+
+### Categories
+- `GET /api/categories` - Get all categories
+- `GET /api/categories/:id` - Get category by ID
+- `POST /api/categories` - Create category
+- `PUT /api/categories/:id` - Update category
+- `DELETE /api/categories/:id` - Delete category
+
+### Budgets
+- `GET /api/budgets` - Get all budgets
+- `GET /api/budgets/active` - Get active budgets
+- `GET /api/budgets/status` - Get budget vs actual
+- `GET /api/budgets/:id` - Get budget by ID
+- `POST /api/budgets` - Create budget
+- `PUT /api/budgets/:id` - Update budget
+- `DELETE /api/budgets/:id` - Delete budget
+
+### Transactions
+- `GET /api/transactions` - Get all transactions (with filters)
+- `GET /api/transactions/stats` - Get spending statistics
+- `GET /api/transactions/trends` - Get spending trends
+- `GET /api/transactions/:id` - Get transaction by ID
+- `POST /api/transactions` - Create transaction
+- `PUT /api/transactions/:id` - Update transaction
+- `DELETE /api/transactions/:id` - Delete transaction
+
+**For complete API documentation with request/response examples, see [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)**
 
 ## Database Models
 
-### User Model
+All models use parameterized queries for SQL injection protection.
+
+**User Model** - Authentication and profile management
 ```javascript
 User.findById(userId)
 User.findByEmail(email)
@@ -126,16 +174,27 @@ User.update(userId, { firstName, lastName, email })
 User.delete(userId)
 ```
 
-### Category Model
+**Category Model** - Income/expense categorization
 ```javascript
 Category.findById(categoryId, userId)
 Category.findByUser(userId, type)
 Category.create({ userId, name, type, color })
-Category.update(categoryId, userId, { name, type, color })
+Category.update(categoryId, userId, updates)
 Category.delete(categoryId, userId)
 ```
 
-### Transaction Model
+**Budget Model** - Budget management and tracking
+```javascript
+Budget.findById(budgetId, userId)
+Budget.findByUser(userId, filters)
+Budget.findActiveBudgets(userId)
+Budget.getBudgetStatus(userId)
+Budget.create({ userId, categoryId, amount, periodStart, periodEnd })
+Budget.update(budgetId, userId, updates)
+Budget.delete(budgetId, userId)
+```
+
+**Transaction Model** - Financial transaction tracking
 ```javascript
 Transaction.findById(transactionId, userId)
 Transaction.findByUser(userId, filters)
@@ -149,91 +208,181 @@ Transaction.getMonthlyTrend(userId, months)
 ## Middleware
 
 ### Authentication
+Protects routes requiring user authentication:
 ```javascript
 const { authenticate } = require('./middleware/auth');
-
-// Protect routes
 router.get('/protected', authenticate, controller.method);
 ```
 
 ### Validation
+Validates and sanitizes request data:
 ```javascript
 const { validateTransaction } = require('./middleware/validation');
-
-// Validate request body
 router.post('/transactions', validateTransaction, controller.create);
 ```
+
+Available validators:
+- `validateRegistration` - User registration
+- `validateLogin` - User login
+- `validateCategory` - Category creation/update
+- `validateBudget` - Budget creation/update
+- `validateTransaction` - Transaction creation/update
+- `validateUuidParam` - UUID parameter validation
+- `validateDateRange` - Date range query validation
+- `validatePagination` - Pagination query validation
+
+## Error Handling
+
+Custom error classes for consistent error responses:
+
+```javascript
+const { NotFoundError, BadRequestError } = require('./utils/errors');
+
+// Throw errors in controllers
+if (!user) {
+  throw new NotFoundError('User not found');
+}
+
+// Errors are automatically caught and formatted by errorHandler middleware
+```
+
+Available error classes:
+- `BadRequestError` (400)
+- `UnauthorizedError` (401)
+- `ForbiddenError` (403)
+- `NotFoundError` (404)
+- `ConflictError` (409)
+- `ValidationError` (422)
+- `InternalServerError` (500)
 
 ## Security Features
 
 - **Helmet**: Security headers
-- **CORS**: Cross-origin resource sharing configured
+- **CORS**: Configured cross-origin resource sharing
 - **Rate Limiting**: 100 requests per 15 minutes per IP
 - **JWT**: Stateless authentication with 7-day expiration
-- **bcrypt**: Password hashing with salt rounds
+- **bcrypt**: Password hashing (10 salt rounds)
 - **Input Validation**: express-validator on all endpoints
 - **SQL Injection Protection**: Parameterized queries
-
-## Database Connection
-
-The application uses connection pooling for efficient database access:
-- Max connections: 20
-- Idle timeout: 30 seconds
-- Connection timeout: 2 seconds
-
-## Error Handling
-
-The server includes:
-- Global error handler middleware
-- Graceful shutdown on SIGTERM/SIGINT
-- Unhandled rejection handler
-- Database error logging
-
-## Development
-
-### Run with auto-reload
-```bash
-npm run dev
-```
-
-### Linting
-```bash
-npm run lint
-npm run lint:fix
-```
-
-### Testing (TODO)
-```bash
-npm test
-npm run test:watch
-```
-
-## Next Steps
-
-To complete the backend:
-
-1. **Create Controllers** - Implement business logic for each route
-2. **Create Routes** - Wire up controllers to Express routes
-3. **Budget Model** - Add budget-related database operations
-4. **Error Utilities** - Custom error classes and handlers
-5. **Testing** - Add unit and integration tests
-6. **Documentation** - Add JSDoc comments and API documentation
+- **Error Sanitization**: Production errors hide stack traces
 
 ## Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| NODE_ENV | Environment (development/production) | development |
-| PORT | Server port | 5000 |
+| NODE_ENV | Environment | development |
+| PORT | Server port | 5001 |
 | DB_HOST | PostgreSQL host | localhost |
 | DB_PORT | PostgreSQL port | 5432 |
 | DB_NAME | Database name | spendly |
 | DB_USER | Database user | spendly_app |
 | DB_PASSWORD | Database password | (required) |
-| DB_SSL | Enable SSL for database | false |
-| JWT_SECRET | Secret key for JWT signing | (required) |
-| JWT_EXPIRES_IN | JWT expiration time | 7d |
-| CORS_ORIGIN | Allowed CORS origin | http://localhost:3000 |
+| DB_SSL | Enable SSL | false |
+| JWT_SECRET | JWT signing key | (required) |
+| JWT_EXPIRES_IN | Token expiration | 7d |
+| CORS_ORIGIN | Allowed origin | http://localhost:3000 |
+| RATE_LIMIT_WINDOW_MS | Rate limit window | 900000 (15min) |
+| RATE_LIMIT_MAX_REQUESTS | Max requests | 100 |
+
+## Testing
+
+Run the server and test endpoints:
+
+```bash
+# Start server
+npm run dev
+
+# Test health check
+curl http://localhost:5001/health
+
+# Register user
+curl -X POST http://localhost:5001/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"Test123!","firstName":"Test","lastName":"User"}'
+
+# Login
+curl -X POST http://localhost:5001/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"Test123!"}'
+
+# Get categories (use token from login)
+curl http://localhost:5001/api/categories \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+## Database Connection
+
+Connection pooling configuration:
+- **Max connections**: 20
+- **Idle timeout**: 30 seconds
+- **Connection timeout**: 2 seconds
+
+The pool automatically:
+- Reconnects on connection loss
+- Logs connection events
+- Handles errors gracefully
+
+## Graceful Shutdown
+
+The server handles shutdown signals:
+- Closes database connections
+- Finishes pending requests
+- Exits cleanly
+
+```bash
+# Stop server gracefully
+Ctrl+C  # or
+kill -SIGTERM <pid>
+```
+
+## Scripts
+
+```bash
+npm start          # Start server
+npm run dev        # Start with auto-reload (nodemon)
+npm test           # Run tests (not yet implemented)
+npm run lint       # Run ESLint
+npm run lint:fix   # Fix linting issues
+```
+
+## Performance Considerations
+
+- Database queries use indexes for optimal performance
+- Connection pooling reduces overhead
+- Compression middleware reduces response size
+- Database views pre-compute complex aggregations
+- Rate limiting prevents abuse
+
+## Troubleshooting
+
+### Database connection errors
+```bash
+# Check PostgreSQL is running
+pg_isready
+
+# Test connection
+psql -d spendly -U spendly_app
+```
+
+### Port already in use
+```bash
+# Find process using port
+lsof -ti:5001
+
+# Kill process
+kill -9 $(lsof -ti:5001)
+```
+
+### JWT errors
+- Ensure JWT_SECRET is set in .env
+- JWT_SECRET must be at least 32 characters
+
+## Contributing
+
+1. Follow existing code style
+2. Add validation for new endpoints
+3. Document new API endpoints
+4. Test before committing
 
 ## License
 

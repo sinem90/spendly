@@ -79,25 +79,14 @@ app.get('/health', async (req, res) => {
 // API Routes
 // ========================================
 
-// TODO: Import and use route modules
-// const routes = require('./routes');
-// app.use('/api', routes);
-
-// Placeholder for routes
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'Spendly API',
-    version: '1.0.0',
-    endpoints: {
-      health: '/health',
-      api: '/api',
-    },
-  });
-});
+const routes = require('./routes');
+app.use('/api', routes);
 
 // ========================================
 // Error Handling Middleware
 // ========================================
+
+const { errorHandler } = require('./utils/errors');
 
 // 404 handler
 app.use((req, res) => {
@@ -108,25 +97,7 @@ app.use((req, res) => {
 });
 
 // Global error handler
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-
-  // Default error status and message
-  const status = err.status || err.statusCode || 500;
-  const message = err.message || 'Internal Server Error';
-
-  // Send error response
-  res.status(status).json({
-    error: {
-      message,
-      status,
-      ...(process.env.NODE_ENV === 'development' && {
-        stack: err.stack,
-        details: err.details,
-      }),
-    },
-  });
-});
+app.use(errorHandler);
 
 // ========================================
 // Server Startup
