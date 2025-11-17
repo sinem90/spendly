@@ -9,7 +9,7 @@ const rateLimit = require('express-rate-limit');
 const { pool } = require('./config/database');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 // ========================================
 // Middleware Configuration
