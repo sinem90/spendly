@@ -14,11 +14,11 @@ const Layout = ({ children }) => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'var(--gray-50)' }}>
       <nav style={{
-        backgroundColor: 'white',
-        borderBottom: '1px solid #e5e7eb',
-        padding: '1rem 0'
+        background: 'linear-gradient(135deg, #1e4541 0%, #2a6460 100%)',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        padding: '0.75rem 0'
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -28,20 +28,31 @@ const Layout = ({ children }) => {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-            <Link to="/dashboard" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#2563eb', textDecoration: 'none' }}>
-              Spendly
+          <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
+            <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img
+                src="/logo.png"
+                alt="Spendly"
+                style={{ height: '40px', filter: 'brightness(0) invert(1)' }}
+              />
             </Link>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
               <Link
                 to="/dashboard"
                 style={{
                   textDecoration: 'none',
-                  color: isActive('/dashboard') ? '#2563eb' : '#4b5563',
+                  color: 'white',
                   fontWeight: isActive('/dashboard') ? '600' : '400',
                   padding: '0.5rem 1rem',
-                  borderRadius: '4px',
-                  backgroundColor: isActive('/dashboard') ? '#eff6ff' : 'transparent'
+                  borderRadius: '6px',
+                  backgroundColor: isActive('/dashboard') ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive('/dashboard')) e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive('/dashboard')) e.target.style.backgroundColor = 'transparent';
                 }}
               >
                 Dashboard
@@ -50,11 +61,18 @@ const Layout = ({ children }) => {
                 to="/transactions"
                 style={{
                   textDecoration: 'none',
-                  color: isActive('/transactions') ? '#2563eb' : '#4b5563',
+                  color: 'white',
                   fontWeight: isActive('/transactions') ? '600' : '400',
                   padding: '0.5rem 1rem',
-                  borderRadius: '4px',
-                  backgroundColor: isActive('/transactions') ? '#eff6ff' : 'transparent'
+                  borderRadius: '6px',
+                  backgroundColor: isActive('/transactions') ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive('/transactions')) e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive('/transactions')) e.target.style.backgroundColor = 'transparent';
                 }}
               >
                 Transactions
@@ -63,11 +81,18 @@ const Layout = ({ children }) => {
                 to="/categories"
                 style={{
                   textDecoration: 'none',
-                  color: isActive('/categories') ? '#2563eb' : '#4b5563',
+                  color: 'white',
                   fontWeight: isActive('/categories') ? '600' : '400',
                   padding: '0.5rem 1rem',
-                  borderRadius: '4px',
-                  backgroundColor: isActive('/categories') ? '#eff6ff' : 'transparent'
+                  borderRadius: '6px',
+                  backgroundColor: isActive('/categories') ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive('/categories')) e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive('/categories')) e.target.style.backgroundColor = 'transparent';
                 }}
               >
                 Categories
@@ -76,31 +101,65 @@ const Layout = ({ children }) => {
                 to="/budgets"
                 style={{
                   textDecoration: 'none',
-                  color: isActive('/budgets') ? '#2563eb' : '#4b5563',
+                  color: 'white',
                   fontWeight: isActive('/budgets') ? '600' : '400',
                   padding: '0.5rem 1rem',
-                  borderRadius: '4px',
-                  backgroundColor: isActive('/budgets') ? '#eff6ff' : 'transparent'
+                  borderRadius: '6px',
+                  backgroundColor: isActive('/budgets') ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive('/budgets')) e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive('/budgets')) e.target.style.backgroundColor = 'transparent';
                 }}
               >
                 Budgets
               </Link>
+              <Link
+                to="/reports"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  fontWeight: isActive('/reports') ? '600' : '400',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '6px',
+                  backgroundColor: isActive('/reports') ? 'rgba(255,255,255,0.2)' : 'transparent',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive('/reports')) e.target.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive('/reports')) e.target.style.backgroundColor = 'transparent';
+                }}
+              >
+                Reports
+              </Link>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ color: '#6b7280' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: '500' }}>
               {user?.firstName} {user?.lastName}
             </span>
             <button
               onClick={handleLogout}
               style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#ef4444',
+                padding: '0.5rem 1.25rem',
+                backgroundColor: 'rgba(255,255,255,0.15)',
                 color: 'white',
-                border: 'none',
-                borderRadius: '4px',
+                border: '1px solid rgba(255,255,255,0.3)',
+                borderRadius: '6px',
                 cursor: 'pointer',
-                fontWeight: '500'
+                fontWeight: '500',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = 'rgba(255,255,255,0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = 'rgba(255,255,255,0.15)';
               }}
             >
               Logout

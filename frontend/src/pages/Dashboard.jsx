@@ -31,47 +31,47 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1 style={{ marginBottom: '2rem' }}>Dashboard</h1>
+      <h1 style={{ marginBottom: '2rem', color: 'var(--gray-900)' }}>Dashboard</h1>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-        <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ marginBottom: '0.5rem', color: '#666' }}>Total Expenses</h3>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#2563eb' }}>
+      <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <h3 style={{ marginBottom: '0.5rem', color: 'var(--gray-600)', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Expenses</h3>
+          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--primary)' }}>
             ${stats?.totalExpenses?.toFixed(2) || '0.00'}
           </p>
         </div>
-        <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-          <h3 style={{ marginBottom: '0.5rem', color: '#666' }}>Categories</h3>
-          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#10b981' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <h3 style={{ marginBottom: '0.5rem', color: 'var(--gray-600)', fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Categories</h3>
+          <p style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--success)' }}>
             {stats?.categoriesCount || 0}
           </p>
         </div>
       </div>
 
-      <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '1.5rem' }}>
+      <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <h2>Budget Status</h2>
-          <Link to="/budgets" style={{ color: '#2563eb', textDecoration: 'none' }}>View All</Link>
+          <h2 style={{ color: 'var(--gray-900)' }}>Budget Status</h2>
+          <Link to="/budgets" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: '500' }}>View All →</Link>
         </div>
         {budgetStatus.length === 0 ? (
-          <p style={{ color: '#666' }}>No active budgets. <Link to="/budgets">Create one</Link></p>
+          <p style={{ color: 'var(--gray-600)' }}>No active budgets. <Link to="/budgets" style={{ color: 'var(--primary)' }}>Create one</Link></p>
         ) : (
           <div>
             {budgetStatus.map((budget) => (
-              <div key={budget.budget_id} style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
+              <div key={budget.budget_id} style={{ padding: '1rem', borderBottom: '1px solid var(--gray-200)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                  <span style={{ fontWeight: '500' }}>{budget.category_name}</span>
-                  <span>${budget.spent_amount} / ${budget.budget_amount}</span>
+                  <span style={{ fontWeight: '500', color: 'var(--gray-900)' }}>{budget.category_name}</span>
+                  <span style={{ color: 'var(--gray-700)' }}>${budget.spent_amount} / ${budget.budget_amount}</span>
                 </div>
-                <div style={{ backgroundColor: '#f0f0f0', height: '8px', borderRadius: '4px', overflow: 'hidden' }}>
+                <div style={{ backgroundColor: 'var(--gray-200)', height: '8px', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
                   <div style={{
                     width: `${Math.min(budget.percentage_used, 100)}%`,
                     height: '100%',
-                    backgroundColor: budget.percentage_used > 90 ? '#ef4444' : budget.percentage_used > 75 ? '#f59e0b' : '#10b981',
+                    backgroundColor: budget.percentage_used > 90 ? 'var(--danger)' : budget.percentage_used > 75 ? 'var(--warning)' : 'var(--success)',
                     transition: 'width 0.3s'
                   }} />
                 </div>
-                <div style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.25rem' }}>
+                <div style={{ fontSize: '0.875rem', color: 'var(--gray-600)', marginTop: '0.25rem' }}>
                   {budget.percentage_used}% used
                 </div>
               </div>
@@ -80,19 +80,19 @@ const Dashboard = () => {
         )}
       </div>
 
-      <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-        <h2 style={{ marginBottom: '1rem' }}>Spending by Category</h2>
+      <div className="card fade-in" style={{ padding: '1.5rem' }}>
+        <h2 style={{ marginBottom: '1rem', color: 'var(--gray-900)' }}>Spending by Category</h2>
         {stats?.byCategory?.length === 0 ? (
-          <p style={{ color: '#666' }}>No transactions yet. <Link to="/transactions">Add one</Link></p>
+          <p style={{ color: 'var(--gray-600)' }}>No transactions yet. <Link to="/transactions" style={{ color: 'var(--primary)' }}>Add one</Link></p>
         ) : (
           <div>
             {stats?.byCategory?.map((cat) => (
-              <div key={cat.category_id} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid #eee' }}>
+              <div key={cat.category_id} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.75rem 0', borderBottom: '1px solid var(--gray-200)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: cat.color }} />
-                  <span>{cat.category_name}</span>
+                  <span style={{ color: 'var(--gray-900)' }}>{cat.category_name}</span>
                 </div>
-                <span style={{ fontWeight: '500' }}>${parseFloat(cat.total_amount).toFixed(2)}</span>
+                <span style={{ fontWeight: '500', color: 'var(--gray-900)' }}>${parseFloat(cat.total_amount).toFixed(2)}</span>
               </div>
             ))}
           </div>
