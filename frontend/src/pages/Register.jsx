@@ -48,12 +48,22 @@ const Register = () => {
         maxWidth: '420px'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <img
-            src="/logo.png"
-            alt="Spendly"
-            style={{ height: '50px', marginBottom: '1rem' }}
-          />
-          <h2 style={{ marginBottom: '0.5rem', color: 'var(--gray-900)' }}>Create Account</h2>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '12px',
+            backgroundColor: 'var(--primary)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 1rem',
+            fontWeight: 'bold',
+            fontSize: '2rem',
+            color: 'white'
+          }}>
+            $
+          </div>
+          <h2 style={{ marginBottom: '0.5rem', color: 'var(--gray-900)', fontSize: '1.75rem' }}>Create Account</h2>
           <p style={{ color: 'var(--gray-600)', fontSize: '0.875rem' }}>Start managing your finances today</p>
         </div>
 

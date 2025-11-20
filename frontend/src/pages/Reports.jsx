@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { transactionService } from '../services/transactionService';
 import { format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
+import PageHeader from '../components/PageHeader';
 import {
   LineChart,
   Line,
@@ -118,24 +119,28 @@ const Reports = () => {
   }
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ color: 'var(--gray-900)' }}>Reports & Analytics</h1>
-        <button
-          onClick={exportToCSV}
-          style={{
-            padding: '0.75rem 1.5rem',
-            backgroundColor: 'var(--success)',
-            color: 'white',
-            border: 'none',
-            borderRadius: 'var(--radius)',
-            cursor: 'pointer',
-            fontWeight: '500',
-          }}
-        >
-          Export to CSV
-        </button>
-      </div>
+    <div style={{ padding: '2rem' }}>
+      <PageHeader
+        title="Reports & Analytics"
+        subtitle="Visualize your spending patterns and trends"
+        action={
+          <button
+            onClick={exportToCSV}
+            style={{
+              padding: '0.75rem 1.5rem',
+              backgroundColor: 'white',
+              color: 'var(--primary)',
+              border: 'none',
+              borderRadius: 'var(--radius)',
+              cursor: 'pointer',
+              fontWeight: '600',
+            }}
+          >
+            📥 Export to CSV
+          </button>
+        }
+      />
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
       {/* Date Range Filters */}
       <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
@@ -402,6 +407,7 @@ const Reports = () => {
           </p>
         </div>
       )}
+      </div>
     </div>
   );
 };

@@ -29,12 +29,22 @@ const Layout = ({ children }) => {
           alignItems: 'center'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
-            <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <img
-                src="/logo.png"
-                alt="Spendly"
-                style={{ height: '40px', filter: 'brightness(0) invert(1)' }}
-              />
+            <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', gap: '0.5rem' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '8px',
+                backgroundColor: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '1.25rem',
+                color: 'var(--primary)'
+              }}>
+                $
+              </div>
+              <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>Spendly</span>
             </Link>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <Link

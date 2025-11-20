@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { budgetService } from '../services/budgetService';
 import { categoryService } from '../services/categoryService';
 import { format, startOfMonth, endOfMonth } from 'date-fns';
+import PageHeader from '../components/PageHeader';
 
 const Budgets = () => {
   const [budgets, setBudgets] = useState([]);
@@ -60,24 +61,28 @@ const Budgets = () => {
   };
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ color: 'var(--gray-900)' }}>Budgets</h1>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          style={{
-            padding: '0.75rem 1.5rem',
-            backgroundColor: showForm ? 'var(--gray-600)' : 'var(--primary)',
-            color: 'white',
-            border: 'none',
-            borderRadius: 'var(--radius)',
-            cursor: 'pointer',
-            fontWeight: '500'
-          }}
-        >
-          {showForm ? 'Cancel' : '+ Add Budget'}
-        </button>
-      </div>
+    <div style={{ padding: '2rem' }}>
+      <PageHeader
+        title="Budgets"
+        subtitle="Set spending limits and track your progress"
+        action={
+          <button
+            onClick={() => setShowForm(!showForm)}
+            style={{
+              padding: '0.75rem 1.5rem',
+              backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
+              color: showForm ? 'white' : 'var(--primary)',
+              border: showForm ? '1px solid white' : 'none',
+              borderRadius: 'var(--radius)',
+              cursor: 'pointer',
+              fontWeight: '600'
+            }}
+          >
+            {showForm ? 'Cancel' : '+ Add Budget'}
+          </button>
+        }
+      />
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
       {showForm && (
         <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
@@ -203,6 +208,7 @@ const Budgets = () => {
             </div>
           ))
         )}
+      </div>
       </div>
     </div>
   );
