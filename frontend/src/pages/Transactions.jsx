@@ -218,6 +218,7 @@ const Transactions = () => {
         )}
       </div>
     </div>
+    </div>
   );
 };
 
