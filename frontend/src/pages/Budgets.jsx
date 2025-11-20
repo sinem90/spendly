@@ -62,27 +62,27 @@ const Budgets = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <PageHeader
-        title="Budgets"
-        subtitle="Set spending limits and track your progress"
-        action={
-          <button
-            onClick={() => setShowForm(!showForm)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
-              color: showForm ? 'white' : 'var(--primary)',
-              border: showForm ? '1px solid white' : 'none',
-              borderRadius: 'var(--radius)',
-              cursor: 'pointer',
-              fontWeight: '600'
-            }}
-          >
-            {showForm ? 'Cancel' : '+ Add Budget'}
-          </button>
-        }
-      />
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <PageHeader
+          title="Budgets"
+          subtitle="Set spending limits and track your progress"
+          action={
+            <button
+              onClick={() => setShowForm(!showForm)}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
+                color: showForm ? 'white' : 'var(--primary)',
+                border: showForm ? '1px solid white' : 'none',
+                borderRadius: 'var(--radius)',
+                cursor: 'pointer',
+                fontWeight: '600'
+              }}
+            >
+              {showForm ? 'Cancel' : '+ Add Budget'}
+            </button>
+          }
+        />
 
       {showForm && (
         <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
@@ -208,7 +208,6 @@ const Budgets = () => {
             </div>
           ))
         )}
-      </div>
       </div>
     </div>
   );

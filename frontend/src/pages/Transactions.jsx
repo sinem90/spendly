@@ -64,27 +64,27 @@ const Transactions = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <PageHeader
-        title="Transactions"
-        subtitle="Track all your income and expenses"
-        action={
-          <button
-            onClick={() => setShowForm(!showForm)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
-              color: showForm ? 'white' : 'var(--primary)',
-              border: showForm ? '1px solid white' : 'none',
-              borderRadius: 'var(--radius)',
-              cursor: 'pointer',
-              fontWeight: '600'
-            }}
-          >
-            {showForm ? 'Cancel' : '+ Add Transaction'}
-          </button>
-        }
-      />
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <PageHeader
+          title="Transactions"
+          subtitle="Track all your income and expenses"
+          action={
+            <button
+              onClick={() => setShowForm(!showForm)}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
+                color: showForm ? 'white' : 'var(--primary)',
+                border: showForm ? '1px solid white' : 'none',
+                borderRadius: 'var(--radius)',
+                cursor: 'pointer',
+                fontWeight: '600'
+              }}
+            >
+              {showForm ? 'Cancel' : '+ Add Transaction'}
+            </button>
+          }
+        />
 
       {showForm && (
         <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
@@ -216,7 +216,6 @@ const Transactions = () => {
             </tbody>
           </table>
         )}
-      </div>
       </div>
     </div>
   );

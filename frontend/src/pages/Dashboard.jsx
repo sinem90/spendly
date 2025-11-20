@@ -32,11 +32,11 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <PageHeader
-        title="Dashboard"
-        subtitle="Overview of your financial health"
-      />
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <PageHeader
+          title="Dashboard"
+          subtitle="Overview of your financial health"
+        />
 
       <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
         <div className="card" style={{ padding: '1.5rem' }}>
@@ -102,7 +102,6 @@ const Dashboard = () => {
             ))}
           </div>
         )}
-      </div>
       </div>
     </div>
   );

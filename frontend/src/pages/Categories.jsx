@@ -48,27 +48,27 @@ const Categories = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <PageHeader
-        title="Categories"
-        subtitle="Organize your transactions into categories"
-        action={
-          <button
-            onClick={() => setShowForm(!showForm)}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
-              color: showForm ? 'white' : 'var(--primary)',
-              border: showForm ? '1px solid white' : 'none',
-              borderRadius: 'var(--radius)',
-              cursor: 'pointer',
-              fontWeight: '600'
-            }}
-          >
-            {showForm ? 'Cancel' : '+ Add Category'}
-          </button>
-        }
-      />
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <PageHeader
+          title="Categories"
+          subtitle="Organize your transactions into categories"
+          action={
+            <button
+              onClick={() => setShowForm(!showForm)}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: showForm ? 'rgba(255,255,255,0.2)' : 'white',
+                color: showForm ? 'white' : 'var(--primary)',
+                border: showForm ? '1px solid white' : 'none',
+                borderRadius: 'var(--radius)',
+                cursor: 'pointer',
+                fontWeight: '600'
+              }}
+            >
+              {showForm ? 'Cancel' : '+ Add Category'}
+            </button>
+          }
+        />
 
       {showForm && (
         <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
@@ -188,7 +188,6 @@ const Categories = () => {
             )}
           </div>
         </div>
-      </div>
       </div>
     </div>
   );

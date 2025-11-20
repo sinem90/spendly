@@ -120,27 +120,27 @@ const Reports = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <PageHeader
-        title="Reports & Analytics"
-        subtitle="Visualize your spending patterns and trends"
-        action={
-          <button
-            onClick={exportToCSV}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'white',
-              color: 'var(--primary)',
-              border: 'none',
-              borderRadius: 'var(--radius)',
-              cursor: 'pointer',
-              fontWeight: '600',
-            }}
-          >
-            📥 Export to CSV
-          </button>
-        }
-      />
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        <PageHeader
+          title="Reports & Analytics"
+          subtitle="Visualize your spending patterns and trends"
+          action={
+            <button
+              onClick={exportToCSV}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: 'white',
+                color: 'var(--primary)',
+                border: 'none',
+                borderRadius: 'var(--radius)',
+                cursor: 'pointer',
+                fontWeight: '600',
+              }}
+            >
+              📥 Export to CSV
+            </button>
+          }
+        />
 
       {/* Date Range Filters */}
       <div className="card fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
