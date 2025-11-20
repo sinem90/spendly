@@ -16,6 +16,7 @@
 
   /* Neutral Colors */
   --white: #ffffff;
+  --off-white: #fafcfc;
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -113,7 +114,8 @@ input:focus, select:focus, textarea:focus {
 
 /* Card Styles */
 .card {
-  background: var(--white);
+  background: var(--off-white);
+  border: 1px solid rgba(42, 100, 96, 0.08);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   transition: box-shadow 0.2s ease;
@@ -121,6 +123,7 @@ input:focus, select:focus, textarea:focus {
 
 .card:hover {
   box-shadow: var(--shadow-md);
+  border-color: rgba(42, 100, 96, 0.12);
 }
 
 /* Animations */

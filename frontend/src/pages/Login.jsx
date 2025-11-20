@@ -37,7 +37,8 @@ const Login = () => {
       <div className="card fade-in" style={{
         padding: '2.5rem',
         width: '100%',
-        maxWidth: '420px'
+        maxWidth: '420px',
+        background: 'var(--white)'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{

@@ -107,37 +107,62 @@ else
     exit 1
 fi
 
-# Step 8: Sync to S3
-log_info "Uploading files to S3..."
+# Step 8: Upload files with correct MIME types
+log_info "Uploading files to S3 with correct MIME types..."
 echo ""
-if aws s3 sync "$BUILD_DIR/" "s3://$S3_BUCKET" --delete; then
-    echo ""
-    log_success "Files uploaded to S3 successfully"
-else
-    echo ""
-    log_error "S3 sync failed"
-    exit 1
-fi
 
-# Step 9: Set cache control headers
-log_info "Setting cache control headers..."
+# Upload HTML files
+log_info "Uploading HTML files..."
+aws s3 sync "$BUILD_DIR/" "s3://$S3_BUCKET" \
+  --delete \
+  --exclude "*" \
+  --include "*.html" \
+  --content-type "text/html" \
+  --cache-control "no-cache,no-store,must-revalidate"
 
-# Cache static assets for 1 year
-log_info "Setting long-term cache for static assets..."
-aws s3 cp "s3://$S3_BUCKET" "s3://$S3_BUCKET" \
-  --recursive \
-  --exclude "index.html" \
-  --metadata-directive REPLACE \
-  --cache-control "max-age=31536000,public" &> /dev/null
-log_success "Static assets cache headers set"
+# Upload JavaScript files
+log_info "Uploading JavaScript files..."
+aws s3 sync "$BUILD_DIR/" "s3://$S3_BUCKET" \
+  --exclude "*" \
+  --include "*.js" \
+  --content-type "application/javascript" \
+  --cache-control "max-age=31536000,public"
 
-# No cache for index.html
-log_info "Setting no-cache for index.html..."
-aws s3 cp "s3://$S3_BUCKET/index.html" "s3://$S3_BUCKET/index.html" \
-  --metadata-directive REPLACE \
-  --cache-control "no-cache,no-store,must-revalidate" \
-  --content-type "text/html" &> /dev/null
-log_success "index.html cache headers set"
+# Upload CSS files
+log_info "Uploading CSS files..."
+aws s3 sync "$BUILD_DIR/" "s3://$S3_BUCKET" \
+  --exclude "*" \
+  --include "*.css" \
+  --content-type "text/css" \
+  --cache-control "max-age=31536000,public"
+
+# Upload images
+log_info "Uploading image files..."
+aws s3 sync "$BUILD_DIR/" "s3://$S3_BUCKET" \
+  --exclude "*" \
+  --include "*.png" \
+  --include "*.jpg" \
+  --include "*.jpeg" \
+  --include "*.gif" \
+  --include "*.svg" \
+  --include "*.ico" \
+  --cache-control "max-age=31536000,public"
+
+# Upload any other files
+log_info "Uploading remaining files..."
+aws s3 sync "$BUILD_DIR/" "s3://$S3_BUCKET" \
+  --exclude "*.html" \
+  --exclude "*.js" \
+  --exclude "*.css" \
+  --exclude "*.png" \
+  --exclude "*.jpg" \
+  --exclude "*.jpeg" \
+  --exclude "*.gif" \
+  --exclude "*.svg" \
+  --exclude "*.ico"
+
+echo ""
+log_success "All files uploaded with correct MIME types"
 
 # Step 10: Check for CloudFront distribution
 log_info "Checking for CloudFront distribution..."

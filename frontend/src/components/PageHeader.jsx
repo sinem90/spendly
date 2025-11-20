@@ -6,43 +6,38 @@ const PageHeader = ({ title, subtitle, action }) => {
       marginBottom: '2rem',
       borderRadius: 'var(--radius-lg)',
       boxShadow: 'var(--shadow-lg)',
-      color: 'white'
+      color: 'white',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: '1rem'
     }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '1rem'
-      }}>
-        <div>
-          <h1 style={{
+      <div>
+        <h1 style={{
+          margin: 0,
+          fontSize: '2rem',
+          fontWeight: '700',
+          marginBottom: subtitle ? '0.5rem' : 0
+        }}>
+          {title}
+        </h1>
+        {subtitle && (
+          <p style={{
             margin: 0,
-            fontSize: '2rem',
-            fontWeight: '700',
-            marginBottom: subtitle ? '0.5rem' : 0
+            fontSize: '1rem',
+            opacity: 0.9,
+            fontWeight: '400'
           }}>
-            {title}
-          </h1>
-          {subtitle && (
-            <p style={{
-              margin: 0,
-              fontSize: '1rem',
-              opacity: 0.9,
-              fontWeight: '400'
-            }}>
-              {subtitle}
-            </p>
-          )}
-        </div>
-        {action && (
-          <div>
-            {action}
-          </div>
+            {subtitle}
+          </p>
         )}
       </div>
+      {action && (
+        <div>
+          {action}
+        </div>
+      )}
     </div>
   );
 };
